@@ -7,6 +7,7 @@ from tablestore.metadata import *
 from tablestore.plainbuffer.plain_buffer_builder import *
 import tablestore.protobuf.table_store_pb2 as pb2
 import tablestore.protobuf.table_store_filter_pb2 as filter_pb2
+from tablestore.compact import unicode, is_py2, long
 
 INT32_MAX = 2147483647
 INT32_MIN = -2147483648
@@ -58,8 +59,8 @@ class OTSProtoBufferEncoder(object):
         self.encoding = encoding
 
         self.api_encode_map = {
-            'CreateTable'       : self._encode_create_table, 
-            'DeleteTable'       : self._encode_delete_table, 
+            'CreateTable'       : self._encode_create_table,
+            'DeleteTable'       : self._encode_delete_table,
             'ListTable'         : self._encode_list_table,
             'UpdateTable'       : self._encode_update_table,
             'DescribeTable'     : self._encode_describe_table,
@@ -73,15 +74,18 @@ class OTSProtoBufferEncoder(object):
         }
 
     def _get_unicode(self, value):
-        if isinstance(value, str):
-            return value.decode(self.encoding)
-        elif isinstance(value, unicode):
-            return value
+        if is_py2:
+            if isinstance(value, str):
+                return value.decode(self.encoding)
+            elif isinstance(value, unicode):
+                return value
+            else:
+                raise OTSClientError(
+                    "expect str or unicode type for string, not %s: %s" % (
+                    value.__class__.__name__, str(value))
+                )
         else:
-            raise OTSClientError(
-                "expect str or unicode type for string, not %s: %s" % (
-                value.__class__.__name__, str(value))
-            )
+            return value
 
     def _get_int32(self, int32):
         if isinstance(int32, int) or isinstance(int32, long):
@@ -196,7 +200,7 @@ class OTSProtoBufferEncoder(object):
         enum_map = COMPARATOR_TYPE_MAP
 
         proto.comparator = enum_map.get(condition.comparator)
-        if proto.comparator is None: 
+        if proto.comparator is None:
             raise OTSClientError(
                 "ComparatorType should be one of [%s], not %s" % (
                     ", ".join(enum_map.keys()), str(condition.comparator)
@@ -206,7 +210,7 @@ class OTSProtoBufferEncoder(object):
         proto.column_name = self._get_unicode(condition.column_name)
         #self._make_column_value(proto.column_value, condition.column_value)
         proto.column_value = str(PlainBufferBuilder.serialize_column_value(condition.column_value))
-        proto.filter_if_missing = not condition.pass_if_missing 
+        proto.filter_if_missing = not condition.pass_if_missing
         proto.latest_version_only = condition.latest_version_only
 
         return proto.SerializeToString()
@@ -251,12 +255,12 @@ class OTSProtoBufferEncoder(object):
                 "condition should be an instance of Condition, not %s" %
                 condition.__class__.__name__
             )
- 
+
         global ROW_EXISTENCE_EXPECTATION_MAP
         enum_map = ROW_EXISTENCE_EXPECTATION_MAP
 
-        expectation_str = self._get_unicode(condition.row_existence_expectation) 
-        
+        expectation_str = self._get_unicode(condition.row_existence_expectation)
+
         proto.row_existence = enum_map.get(expectation_str)
         if proto.row_existence is None:
             raise OTSClientError(
@@ -308,7 +312,7 @@ class OTSProtoBufferEncoder(object):
             self._make_column_value(item.value, value)
 
     def _make_update_of_attribute_columns_with_dict(self, proto, column_dict):
-    
+
         if not isinstance(column_dict, dict):
             raise OTSClientError(
                 "expect dict for 'update_of_attribute_columns', not %s" % (
@@ -350,12 +354,12 @@ class OTSProtoBufferEncoder(object):
     def _make_table_meta(self, proto, table_meta):
         if not isinstance(table_meta, TableMeta):
             raise OTSClientError(
-                "table_meta should be an instance of TableMeta, not %s" 
+                "table_meta should be an instance of TableMeta, not %s"
                 % table_meta.__class__.__name__
             )
 
         proto.table_name = self._get_unicode(table_meta.table_name)
-        
+
         self._make_schemas_with_list(
             proto.primary_key,
             table_meta.schema_of_primary_key,
@@ -364,7 +368,7 @@ class OTSProtoBufferEncoder(object):
     def _make_table_options(self, proto, table_options):
         if not isinstance(table_options, TableOptions):
             raise OTSClientError(
-                "table_option should be an instance of TableOptions, not %s" 
+                "table_option should be an instance of TableOptions, not %s"
                 % table_options.__class__.__name__
             )
 
@@ -376,10 +380,10 @@ class OTSProtoBufferEncoder(object):
 
         if not isinstance(capacity_unit, CapacityUnit):
             raise OTSClientError(
-                "capacity_unit should be an instance of CapacityUnit, not %s" 
+                "capacity_unit should be an instance of CapacityUnit, not %s"
                 % capacity_unit.__class__.__name__
             )
-        
+
         if capacity_unit.read is None or capacity_unit.write is None:
             raise OTSClientError("both of read and write of CapacityUnit are required")
         proto.read = self._get_int32(capacity_unit.read)
@@ -389,19 +393,19 @@ class OTSProtoBufferEncoder(object):
 
         if not isinstance(reserved_throughput, ReservedThroughput):
             raise OTSClientError(
-                "reserved_throughput should be an instance of ReservedThroughput, not %s" 
+                "reserved_throughput should be an instance of ReservedThroughput, not %s"
                 % reserved_throughput.__class__.__name__
             )
-        
+
         self._make_capacity_unit(proto.capacity_unit, reserved_throughput.capacity_unit)
 
     def _make_update_capacity_unit(self, proto, capacity_unit):
         if not isinstance(capacity_unit, CapacityUnit):
             raise OTSClientError(
-                "capacity_unit should be an instance of CapacityUnit, not %s" 
+                "capacity_unit should be an instance of CapacityUnit, not %s"
                 % capacity_unit.__class__.__name__
             )
-        
+
         if capacity_unit.read is None and capacity_unit.write is None:
             raise OTSClientError("at least one of read or write of CapacityUnit is required")
         if capacity_unit.read is not None:
@@ -413,10 +417,10 @@ class OTSProtoBufferEncoder(object):
 
         if not isinstance(reserved_throughput, ReservedThroughput):
             raise OTSClientError(
-                "reserved_throughput should be an instance of ReservedThroughput, not %s" 
+                "reserved_throughput should be an instance of ReservedThroughput, not %s"
                 % reserved_throughput.__class__.__name__
             )
-        
+
         self._make_update_capacity_unit(proto.capacity_unit, reserved_throughput.capacity_unit)
 
     def _make_batch_get_row_internal(self, proto, request):
@@ -452,7 +456,7 @@ class OTSProtoBufferEncoder(object):
 
     def _make_batch_get_row(self, proto, request):
         if isinstance(request, BatchGetRowRequest):
-            self._make_batch_get_row_internal(proto, request) 
+            self._make_batch_get_row_internal(proto, request)
         else:
             raise OTSClientError("The request should be a instance of BatchGetRowRequest, not %d"%(len(request.__class__.__name__)))
 
@@ -517,11 +521,11 @@ class OTSProtoBufferEncoder(object):
 
     def _make_batch_write_row(self, proto, request):
         if isinstance(request, BatchWriteRowRequest):
-            self._make_batch_write_row_internal(proto, request) 
+            self._make_batch_write_row_internal(proto, request)
         else:
             raise OTSClientError("The request should be a instance of MultiTableInBatchWriteRowItem, not %d"%(len(request.__class__.__name__)))
-    
-             
+
+
     def _encode_create_table(self, table_meta, table_options, reserved_throughput):
         proto = pb2.CreateTableRequest()
         self._make_table_meta(proto.table_meta, table_meta)
@@ -550,7 +554,7 @@ class OTSProtoBufferEncoder(object):
         proto.table_name = self._get_unicode(table_name)
         return proto
 
-    def _encode_get_row(self, table_name, primary_key, columns_to_get, column_filter, 
+    def _encode_get_row(self, table_name, primary_key, columns_to_get, column_filter,
                         max_version, time_range, start_column, end_column, token):
         proto = pb2.GetRowRequest()
         proto.table_name = self._get_unicode(table_name)
@@ -628,8 +632,8 @@ class OTSProtoBufferEncoder(object):
         self._make_batch_write_row(proto, request)
         return proto
 
-    def _encode_get_range(self, table_name, direction, 
-                inclusive_start_primary_key, exclusive_end_primary_key, 
+    def _encode_get_range(self, table_name, direction,
+                inclusive_start_primary_key, exclusive_end_primary_key,
                 columns_to_get, limit, column_filter,
                 max_version, time_range, start_column,
                 end_column, token):
@@ -655,7 +659,7 @@ class OTSProtoBufferEncoder(object):
                 proto.time_range.start_time = time_range[0]
                 proto.time_range.end_time = time_range[1]
             elif isinstance(time_range, int) or isinstance(time_range, long):
-                proto.time_range.specific_time = time_range 
+                proto.time_range.specific_time = time_range
         if start_column is not None:
             proto.start_column = start_column
         if end_column is not None:

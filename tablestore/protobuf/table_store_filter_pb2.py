@@ -8,7 +8,7 @@ from google.protobuf import reflection as _reflection
 from google.protobuf import descriptor_pb2
 # @@protoc_insertion_point(imports)
 
-
+from tablestore.compact import EMPTY_STRING
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -138,7 +138,7 @@ _SINGLECOLUMNVALUEFILTER = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='column_name', full_name='com.aliyun.tablestore.protocol.SingleColumnValueFilter.column_name', index=1,
       number=2, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),

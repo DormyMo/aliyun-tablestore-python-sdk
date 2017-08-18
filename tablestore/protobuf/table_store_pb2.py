@@ -6,6 +6,7 @@ from google.protobuf import reflection
 from google.protobuf import descriptor_pb2
 # @@protoc_insertion_point(imports)
 
+from tablestore.compact import EMPTY_STRING
 
 
 DESCRIPTOR = descriptor.FileDescriptor(
@@ -180,14 +181,14 @@ _ERROR = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='code', full_name='com.aliyun.tablestore.protocol.Error.code', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     descriptor.FieldDescriptor(
       name='message', full_name='com.aliyun.tablestore.protocol.Error.message', index=1,
       number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -215,7 +216,7 @@ _PRIMARYKEYSCHEMA = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='name', full_name='com.aliyun.tablestore.protocol.PrimaryKeySchema.name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -334,7 +335,7 @@ _TABLEMETA = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.TableMeta.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -607,7 +608,7 @@ _UPDATETABLEREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.UpdateTableRequest.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -684,7 +685,7 @@ _DESCRIBETABLEREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.DescribeTableRequest.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -810,7 +811,7 @@ _DELETETABLEREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.DeleteTableRequest.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -859,7 +860,7 @@ _LOADTABLEREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.LoadTableRequest.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -908,7 +909,7 @@ _UNLOADTABLEREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.UnloadTableRequest.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1027,7 +1028,7 @@ _GETROWREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.GetRowRequest.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1069,14 +1070,14 @@ _GETROWREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='start_column', full_name='com.aliyun.tablestore.protocol.GetRowRequest.start_column', index=6,
       number=8, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     descriptor.FieldDescriptor(
       name='end_column', full_name='com.aliyun.tablestore.protocol.GetRowRequest.end_column', index=7,
       number=9, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1153,7 +1154,7 @@ _UPDATEROWREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.UpdateRowRequest.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1237,7 +1238,7 @@ _PUTROWREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.PutRowRequest.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1321,7 +1322,7 @@ _DELETEROWREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.DeleteRowRequest.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1405,7 +1406,7 @@ _TABLEINBATCHGETROWREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.TableInBatchGetRowRequest.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1454,14 +1455,14 @@ _TABLEINBATCHGETROWREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='start_column', full_name='com.aliyun.tablestore.protocol.TableInBatchGetRowRequest.start_column', index=7,
       number=9, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     descriptor.FieldDescriptor(
       name='end_column', full_name='com.aliyun.tablestore.protocol.TableInBatchGetRowRequest.end_column', index=8,
       number=10, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1573,7 +1574,7 @@ _TABLEINBATCHGETROWRESPONSE = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.TableInBatchGetRowResponse.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1685,7 +1686,7 @@ _TABLEINBATCHWRITEROWREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.TableInBatchWriteRowRequest.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1797,7 +1798,7 @@ _TABLEINBATCHWRITEROWRESPONSE = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.TableInBatchWriteRowResponse.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1860,7 +1861,7 @@ _GETRANGEREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='table_name', full_name='com.aliyun.tablestore.protocol.GetRangeRequest.table_name', index=0,
       number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -1923,14 +1924,14 @@ _GETRANGEREQUEST = descriptor.Descriptor(
     descriptor.FieldDescriptor(
       name='start_column', full_name='com.aliyun.tablestore.protocol.GetRangeRequest.start_column', index=9,
       number=11, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     descriptor.FieldDescriptor(
       name='end_column', full_name='com.aliyun.tablestore.protocol.GetRangeRequest.end_column', index=10,
       number=12, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=EMPTY_STRING,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
